@@ -32,11 +32,10 @@
   - **Models**: Handle DB queries
   - **Controllers**: Act as middleware
   - **Views**: Serve frontend
-- **Additional Documentation**
-  - Details in PPT and report
-
-## Error Handling
+<!-- ## Error Handling
 - **Database Lock Error**: `/var/cache/debconf/config.dat is locked by another process`
   - `sudo fuser -v /var/cache/debconf/config.dat`
   - `sudo kill PID`
 - **Other Errors**: Logged to console using `.catch(err -> console.log(err))`
+-->
+
