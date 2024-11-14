@@ -1,0 +1,92 @@
+
+<div id="top-nav">
+        
+        <img style="width: 60px; padding-left:10px;" src="images/logo.png">
+	
+	
+        <ul>
+          
+            
+                <%if (isAuth==1) { %>
+                <li>
+                    <a class="top-button" href="#user_profile">Profile</a>
+                </li>
+                <li>
+                    <a class="top-button" href="#order">Order</a>
+                </li>
+                <li>
+                    <a class="top-button" href="#orderhistory">Order History</a>
+                </li>
+                <li>
+                    <a class="top-button" href="#auto">Recommended Dishes</a>
+                </li>
+                <% } %>
+                
+                <%if (isAuth==2 || isAuth==3) { %>
+                <li>
+                    <a class="top-button" href="/employee">Profile</a>
+                </li>
+                <% } %>
+                
+                <%if (isAuth==4) { %>
+                <li>
+                    <a class="top-button" href="/owner">Profile</a>
+                </li>
+                <% } %>
+            
+            <li><a class="top-button" href="/logout">Logout</a></li>
+         
+        </ul>
+</div>
+
+ <div class="row filter" style="display: flex; margin-left:3em;">
+        <div class="col-lg-3 mx-auto">
+            <label class="text-white mb-3 lead">Filter by Cuisine</label><br>
+            <!-- Multiselect dropdown -->
+            <select id="cuisine" multiple data-style="bg-white rounded-pill px-4 py-3 shadow-sm " class="selectpicker w-100">
+                <option value="indian"> Indian </option>
+                <option value="chinese"> Chinese </option>
+            </select><!-- End -->
+        </div>
+        <div class="col-lg-3 mx-auto">
+            <label class="text-white mb-3 lead">Meal Type</label><br>
+            <!-- Multiselect dropdown -->
+            <select id="category" multiple data-style="bg-white rounded-pill px-4 py-3 shadow-sm " class="selectpicker w-100">
+                <option value="starter"> Starter </option>
+                <option value="main"> Main </option>
+                <option value="dessert"> Dessert </option>
+            </select><!-- End -->
+        </div>
+        <div class="col-lg-3 mx-auto">
+            <label class="text-white mb-3 lead">Cost( Upper Cap)</label><br>
+            <!-- Multiselect dropdown -->
+            <select id="cost" data-style="bg-white rounded-pill px-4 py-3 shadow-sm " class="selectpicker w-100">
+                <option value="" disabled selected>Amount in INR</option>
+                <option value="100"> 100 </option>
+                <option value="125"> 125 </option>
+                <option value="150"> 150 </option>
+                <option value="200"> 200 </option>
+                <option value="300"> 300 </option>
+                <option value="400"> 400 </option>
+                <option value="500"> 500 </option>
+            </select><!-- End -->
+        </div>
+        <div style="display:flex">
+        <form method="POST" action="/filter">
+        <input type="hidden" name="cui" id="filter_cui"/>
+        <input type="hidden" name="cat" id="filter_cat"/>
+        <input type="hidden" name="cost" id="filter_cost"/>
+        <ul><li><button class="top-button" onclick="filter()"> Filter </a></li></ul>
+
+        </form>
+        <form method="POST" action="/filter">
+        <ul><li><button class="top-button" type="submit"> Remove Filters </a></li></ul>
+        </form>
+        </div>
+</div>
+<link rel="stylesheet" href="/css/nav.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="/js/nav.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.2/js/bootstrap-select.min.js"></script>
+
+

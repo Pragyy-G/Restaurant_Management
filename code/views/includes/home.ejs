@@ -1,0 +1,227 @@
+<%- include('base.ejs') %>
+ <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script> 
+<link rel="stylesheet" href="/css/home.css">
+ <link rel="stylesheet" href="/css/forms.css">
+ <link rel="stylesheet" href="/css/product.css">
+ <%- include('nav.ejs') %>
+</head>
+
+<body>
+
+	<div style="margin:auto; left: 5vw;position: relative">
+		<!-- {forlopp}
+		document.getElementbyId().append("<options>$(cook.id)</options>") -->
+			<h1 class="product__title"> Recommended Dishes
+			</h1>
+			
+			<div class="grid" id="auto">
+				
+	
+			<table class="table table-bordered table-dark">
+				<thead>
+					<tr>
+					<th scope="col">Dish </th>
+					<th scope="col">#Orders</th>
+					</tr>
+				</thead>
+				<tbody>
+					<% for (var i = 0; i < topds.length; i++) { %>
+						<% var topd = topds[i]; %>
+							<tr>
+							<th scope="row"><%= topd.dish %></th>
+							<td> <%= topd.num_ordered %></td>
+							<td>
+							<form action="/order" method="post" >
+								<input type="hidden" name="id" value="<%= topd.dish_id %>">
+								
+								<div class="col-sm-2" style="display:flex">
+									
+									<div class="input-group">
+										<span class="input-group-btn">
+											<button onclick="decrement('quantity_<%= topd.dish_id %>11')" type="button" class="quantity-left-minus btn btn-danger btn-number"  data-type="minus" data-field="">
+											<span class="glyphicon glyphicon-minus"></span>
+											</button>
+										</span>
+										<input type="text" style="width:4em;height:2.5em; margin-bottom:1em" id="quantity_<%= topd.dish_id %>11" name="quantity" class="form-control input-number" value="0">
+										<span class="input-group-btn">
+											<button onclick="increment('quantity_<%= topd.dish_id %>11')" type="button" class="quantity-right-plus btn btn-success btn-number" data-type="plus" data-field="">
+												<span class="glyphicon glyphicon-plus"></span>
+											</button>
+										</span>
+									</div>
+								</div>
+								  <button class="order_btn" type="submit">Order</button>
+							  </form>
+							</td>
+						</tr>
+						<% } %>
+				</tbody>
+			</table>
+		
+			
+			</div>
+	</div>
+
+
+<div>
+	<a id="order">
+
+	</a>
+ <ul class="section8-ul">
+	<% for (var i = 0; i < menu.length; i++) { %>
+
+	<li class="section8-li">
+
+	<a class="section8-a" href="#section-8">
+	<img src="images/dish.jpg" style="height:10em; width:15em; display:block;margin: auto; ">
+	  <h2 class="section8-h2"> <%= menu[i].name %> </h2>
+	  <p class="section8-p"><%= menu[i].cuisine %>, <%= menu[i].category %>, <%= menu[i].cost %></p>
+	  <form action="/order" method="post" >
+		<input type="hidden" name="id" value="<%= menu[i].dish_id %>">
+		
+		<div class="col-sm-2" style="display:flex">
+			
+			<div class="input-group">
+				<span class="input-group-btn">
+					<button onclick="decrement('quantity_<%= menu[i].dish_id %>')" type="button" class="quantity-left-minus btn btn-danger btn-number"  data-type="minus" data-field="">
+					<span class="glyphicon glyphicon-minus"></span>
+					</button>
+				</span>
+				<input type="text" style="width:4em;height:2.5em; margin-bottom:1em" id="quantity_<%= menu[i].dish_id %>" name="quantity" class="form-control input-number" value="0">
+				<span class="input-group-btn">
+					<button onclick="increment('quantity_<%= menu[i].dish_id %>')" type="button" class="quantity-right-plus btn btn-success btn-number" data-type="plus" data-field="">
+						<span class="glyphicon glyphicon-plus"></span>
+					</button>
+				</span>
+			</div>
+		</div>
+	  	<button class="order_btn" type="submit">Order</button>
+	  </form>
+	  </a>
+		</li>
+	<% } %>
+
+</ul>
+</div>
+<div>
+	<!-- {forlopp}
+	document.getElementbyId().append("<options>$(cook.id)</options>") -->
+		<h1 class="product__title"> My Order History
+		</h1>
+		
+		<div class="grid" id="orderhistory">
+			
+
+		<table class="table table-bordered table-dark">
+			<thead>
+				<tr>
+				<th scope="col">Order No.</th>
+				<th scope="col">Order ID</th>
+				<th scope="col">Date</th>
+				<th scope="col">Dish</th>
+				<th scope="col">Quantity</th>
+				<th scope="col">Cost</th>
+				</tr>
+			</thead>
+			<tbody>
+				<% for (var i = 0; i < orders.length; i++) { %>
+					<% var order = orders[i]; %>
+						<tr>
+						<th scope="row"><%= i+1 %></th>
+						<td> <%= order.order_id %></td>
+						<td> <%= order.work_date.getDate() %>/<%= order.work_date.getMonth()+1 %>/<%= order.work_date.getFullYear() %></td>
+						<td> <%= order.dish %></td>
+						<td>  <%= order.qty %>
+						</td>
+						<td> <%= order.cost %></td>
+					</tr>
+					<% } %>
+			</tbody>
+		</table>
+	
+		
+		</div>
+</div>
+
+<a id = "user_profile">
+</a>
+<div style="width:800px; margin:0 auto; padding: 100px;">
+	<% for (var i = 0; i < prof.length; i++) { %>
+	<% var pro = prof[i]; %>
+<form class="product-form" action="/employee" method="GET">
+
+					<h1 class="product__title"> My Profile 
+					</h1>
+			  
+					<div class="form-group row">
+		
+						<label for="name" class="col-sm-6 col-form-label">First Name</label>
+						<div class="col-sm-6">
+						<input type="text" disabled="disabled" name="name_fn" id="name_fn" value="<%= pro.name_fn %>">
+						</div>
+					
+					</div>
+					<div class="form-group row">
+		
+						<label for="name" class="col-sm-6 col-form-label">Middle Name</label>
+						<div class="col-sm-6">
+						<input type="text" disabled="disabled" name="name_mn" id="name_mn" value="<%= pro.name_mn %>">
+						</div>
+					
+					</div>
+					<div class="form-group row">
+		
+						<label for="name" class="col-sm-6 col-form-label">Last Name</label>
+						<div class="col-sm-6">
+						<input type="text" disabled="disabled" name="name_ln" id="name_ln" value="<%= pro.name_ln %>">
+						</div>
+					
+					</div>
+					<div class="form-group row">
+		
+						<label for="gender" class="col-sm-6 col-form-label">Gender</label>
+						<div class="col-sm-6">
+						<input type="text" disabled="disabled" name="gender" id="gender" value="<%= pro.gender %>">
+						</div>
+					
+					</div>
+					<div class="form-group row">
+		
+						<label for="age" class="col-sm-6 col-form-label">Age</label>
+						<div class="col-sm-6">
+						<input type="text" disabled="disabled" name="age" id="age" value="<%= pro.age %>">
+						</div>
+					
+					</div>
+				
+				
+			</form>
+	<% } %>
+</div>
+
+<script>
+			
+
+	
+	function increment(e){
+			
+			e = "#".concat(e);
+			console.log(e);
+			var quantity = parseInt($(e).val());
+			console.log(quantity);
+			$(e).val(quantity + 1);
+
+	};
+
+	function decrement(e){
+			e = "#".concat(e);
+			var quantity = parseInt($(e).val());
+			if(quantity>0){
+				$(e).val(quantity - 1);
+			}
+	};
+		
+</script>
+</body>
